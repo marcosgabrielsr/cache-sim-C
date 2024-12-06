@@ -1,43 +1,38 @@
-// Incluindo bibliotecas
+// Including Libs
 #include <stdio.h>
 #include <stdlib.h>
 
-// Struct para representar os blocos
-struct Bloco {
-    int v;                                          // Campo para armazenar bit de validade
-    int contLRU;                                    // Campo para 
-    int tag;                                        // Campo para armazenar a tag de um endereço
-    int *palavras;                                  // Campo para armazenar as palavras de um bloco
+// Struct to represent the blocks
+struct Block {
+    int v;                                          // Field to store the validity bit
+    int contLRU;                                    // Field to store the counter for the LRU exchange system
+    int tag;                                        // Field to store the tag from an address
+    int *words;                                     // Field to store the words of a block
 };
 
-// Struct para representar os conjuntos
-struct Conjunto {
-    struct Bloco *blocos;                           // Campo para o conjunto de blocos de um conjunto
+// Struct to represent the sets
+struct Set {
+    struct Block *blocks;                           // Field to store the blocks set of a set
 };
 
-// Struct para representar a cache
+// Struct to represet the cache
 struct Cache {
-    int m;                                          // Campo para armazenar o total de blocos da cache
-    int n;                                          // Campo para armazenar a associatividade da cache
-    int p;                                          // Campo para armazenar o total de palavras por bloco
-    int b;                                          // Campo para armazenar o número de bytes por palavra
-    struct Conjunto *conjuntos;                     // Campo para armazenar os conjuntos da cache
+    int m;                                          // Field to store the cache number blocks
+    int n;                                          // Field to store the cache associativity
+    int p;                                          // Field to store the number words per block
+    int b;                                          // Field to store the number bytes per word
+    struct Set *sets;                               // Field to store the sets of cache
 };
 
-// Declarando protótipos das funções
-// Função para iniciar um vetor de blocos para os conjuntos
-struct Bloco* iniciarBlocos(int y);
+// Declaring function prototypes
+// Initialize a y size blocks array
+struct Block* initializeBlocks(int y);
 
-// Função para iniciar um vetor de conjuntos para cache
-struct Conjunto* iniciarConjuntos(int x, int y);
+// Initialize a x size sets array with a y size blocks array each position
+struct Set* initializeSets(int x, int y);
 
-// Protótipos das funções
-// Função para iniciar a cache segundo seu:
-// - total de blocos(m);
-// - associatividade(n);
-// - n° de palavras por bloco(p);
-// - n° de bytes por palavra;
-struct Cache iniciarCache(int m, int n, int p, int b);
+// Initialize a cache with your respective fields
+struct Cache initializeCache(int m, int n, int p, int b);
 
-// Função para imprimir informações sobre a cache
+// Print the values on the cache fields
 void printCache(struct Cache cache);

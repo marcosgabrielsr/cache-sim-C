@@ -1,52 +1,53 @@
-// Incluindo bibliotecas
+// Including Libs
 #include "cache.h"
 
-// Função para iniciar um vetor de conjuntos para cache
-struct Conjunto* iniciarConjuntos(int x, int y) {
-    // Aloca dinamicamente um vetor de conjuntos de tamanho x
-    struct Conjunto *novosConjuntos = (struct Conjunto*) calloc (x, sizeof(struct Conjunto));
+// Initialize a y size blocks array
+struct Block* initializeBlocks(int y) {
+    // Dynamic allocation of y size blocs array
+    struct Block *newBlocks = (struct Block*) calloc (y, sizeof(struct Block));
 
-    // Aloca para conjunto um vetor de blocos de tamanho y
-    for(int i = 0; i < x; i++)
-        novosConjuntos[i].blocos = iniciarBlocos(y);
-    
-    return novosConjuntos;
-}
-
-// Função para iniciar um vetor de blocos para os conjuntos
-struct Bloco* iniciarBlocos(int y) {
-    // Aloca dinamicamente um vetor de blocos de tamanho y
-    struct Bloco *novosBlocos = (struct Bloco*) calloc (y, sizeof(struct Bloco));
-
-    // Inicializando bits de validade como zero
+    // Setting v field as zero
     for(int i = 0; i < y; i++)
-        novosBlocos[i].v = 0;
+        newBlocks[i].v = 0;
 
-    return novosBlocos;
+    return newBlocks;
 }
 
-// Função para iniciar a cache
-struct Cache iniciarCache(int m, int n, int p, int b) {
-    struct Cache novaCache;
-    novaCache.m = m;
-    novaCache.n = n;
-    novaCache.p = p;
-    novaCache.b = b;
-    novaCache.conjuntos = iniciarConjuntos(m/n, n);
 
-    return novaCache;
+// Initialize a x size sets array with a y size blocks array each position
+struct Set* initializeSets(int x, int y) {
+    // Dynamic allocation of x size sets array
+    struct Set *newSets = (struct Set*) calloc (x, sizeof(struct Set));
+
+    // Runs the initializeBlocks function for each sets array position
+    for(int i = 0; i < x; i++)
+        newSets[i].blocks = initializeBlocks(y);
+    
+    return newSets;
 }
 
-// Função para imprimir informações sobre a cache
+// Initialize a cache with your respective fields
+struct Cache initializeCache(int m, int n, int p, int b) {
+    struct Cache newCache;
+    newCache.m = m;
+    newCache.n = n;
+    newCache.p = p;
+    newCache.b = b;
+    newCache.sets = initializeSets(m/n, n);
+
+    return newCache;
+}
+
+// Print the values on the cache fields
 void printCache(struct Cache cache) {
-    printf("\n====== Visualizar Cache ======\n");
-    printf("Total de blocos da cache: %d\n", cache.m);
-    printf("Associatividade da cache: %d\n", cache.n);
-    printf("Total de palavras por bloco: %d\n", cache.p);
-    printf("Total de bytes por palavra: %d\n", cache.b);
+    printf("\n====== Cache Visualizer ======\n");
+    printf("Number of blocks: %d\n", cache.m);
+    printf("Associativity: %d\n", cache.n);
+    printf("Number of words per block: %d\n", cache.p);
+    printf("Number of bytes per word: %d\n", cache.b);
 
-    printf("\nÍndice | bit de Validade | tag\n");
+    printf("\nIndex | Validity Bit | Tag\n");
     for(int i = 0; i < (cache.m/cache.n); i++)
         for(int j = 0; j < cache.n; j++)
-            printf("% 6d | % 15d | % 4d\n", i, j, cache.conjuntos[i].blocos[j].v, cache.conjuntos[i].blocos[j].tag);
+            printf("% 5d | % 12d | % 3d\n", i, j, cache.sets[i].blocks[j].v, cache.sets[i].blocks[j].tag);
 }
