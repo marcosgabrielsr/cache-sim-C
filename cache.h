@@ -1,6 +1,10 @@
 // Including Libs
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
+
+// Defining constants
+#define WORD_SIZE_BITS 32
 
 // Struct to represent the blocks
 struct Block {
@@ -36,3 +40,6 @@ struct Cache initializeCache(int m, int n, int p, int b);
 
 // Print the values on the cache fields
 void printCache(struct Cache cache);
+
+// Print the memory address division in fields and the number of bits of each fild
+void printBitsDivision(struct Cache cache);

@@ -51,3 +51,11 @@ void printCache(struct Cache cache) {
         for(int j = 0; j < cache.n; j++)
             printf("% 5d | % 12d | % 3d\n", i, j, cache.sets[i].blocks[j].v, cache.sets[i].blocks[j].tag);
 }
+
+// Print the memory address division in fields and the number of bits of each fild
+void printBitsDivision(struct Cache cache) {
+    const double byteOffSetBits = log2(cache.b);                                                // number of bits for the byteOffSet field
+    const double blockOffSetBits = log2(cache.p);                                               // number of bits for the blockOffSet field
+    const double indexBits = log2((double)(cache.m/cache.n));                                   // number of bits for the index field
+    const double tagBits =  WORD_SIZE_BITS - indexBits - blockOffSetBits - blockOffSetBits;     // number of bits for the tag field
+}
