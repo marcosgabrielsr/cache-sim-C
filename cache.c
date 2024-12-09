@@ -38,24 +38,35 @@ struct Cache initializeCache(int m, int n, int p, int b) {
     return newCache;
 }
 
+// Print the memory address division in fields and the number of bits of each fild
+void printBitsDivision(struct Cache cache) {
+    double byteOffSetBits = log2(cache.b);                                                  // number of bits for the byteOffSet field
+    double blockOffSetBits = log2(cache.p);                                                 // number of bits for the blockOffSet field
+    double indexBits = log2((double)(cache.m/cache.n));                                     // number of bits for the index field
+    double tagBits =  WORD_SIZE_BITS - indexBits - blockOffSetBits - byteOffSetBits;        // number of bits for the tag field
+
+    printf("\n====== Bits Fields Divisoin ======\n");
+    (byteOffSetBits > 0) ? printf(" - byte-off-set: %.0lf bits;\n", byteOffSetBits) : printf("");
+    (blockOffSetBits > 0) ? printf(" - block-off-set: %.0lf bits;\n", blockOffSetBits) : printf("");
+    (indexBits > 0) ? printf(" - index: %.0lf bits;\n", indexBits) : printf("");
+    printf(" - tag: %.0lf bits;\n", tagBits);
+}
+
 // Print the values on the cache fields
 void printCache(struct Cache cache) {
-    printf("\n====== Cache Visualizer ======\n");
+    printf("\n======== Cache Visualizer ========\n");
     printf("Number of blocks: %d\n", cache.m);
     printf("Associativity: %d\n", cache.n);
     printf("Number of words per block: %d\n", cache.p);
     printf("Number of bytes per word: %d\n", cache.b);
 
+    // Call the printBitsDivision function
+    printBitsDivision(cache);
+
     printf("\nIndex | Validity Bit | Tag\n");
     for(int i = 0; i < (cache.m/cache.n); i++)
         for(int j = 0; j < cache.n; j++)
             printf("% 5d | % 12d | % 3d\n", i, j, cache.sets[i].blocks[j].v, cache.sets[i].blocks[j].tag);
-}
-
-// Print the memory address division in fields and the number of bits of each fild
-void printBitsDivision(struct Cache cache) {
-    const double byteOffSetBits = log2(cache.b);                                                // number of bits for the byteOffSet field
-    const double blockOffSetBits = log2(cache.p);                                               // number of bits for the blockOffSet field
-    const double indexBits = log2((double)(cache.m/cache.n));                                   // number of bits for the index field
-    const double tagBits =  WORD_SIZE_BITS - indexBits - blockOffSetBits - blockOffSetBits;     // number of bits for the tag field
+    
+    printf("\n");
 }
