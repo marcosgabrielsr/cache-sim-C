@@ -5,5 +5,8 @@ all: cache.o
 cache.o: cache.h
 	gcc -c cache.c
 
+clean:
+	rm -rf *.o
+
 run:
 	./main
