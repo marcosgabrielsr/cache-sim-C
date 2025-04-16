@@ -5,11 +5,11 @@
 
 // Defining constants
 #define WORD_SIZE_BITS 32.0
+#define MAX_FILE_NAME_SIZE 50
 
 // Struct to represent the blocks
 struct Block {
     int v;                                          // Field to store the validity bit
-    int contLRU;                                    // Field to store the counter for the LRU exchange system
     int tag;                                        // Field to store the tag from an address
     int *words;                                     // Field to store the words of a block
 };
@@ -43,3 +43,6 @@ void printBitsDivision(struct Cache cache);
 
 // Print the cache configurations
 void printCache(struct Cache cache);
+
+// Read a file with memory address
+FILE* read_file(char f_name[MAX_FILE_NAME_SIZE]);
