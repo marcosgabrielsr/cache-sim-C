@@ -9,9 +9,9 @@ As a **bonus**, I created a simulation system that read a .txt fyle with some me
 
 ## How to use
 **First:** Type your file name in the _FILE_NAME_ definition (main.c line 5):
-```bash
+```C
   // Constants
-  #define FILE_NAME "memory_address.txt"
+  #define FILE_NAME "your_memory_address_file_name_here.txt"
 ```
 
 **Second:** Type the follow command and run it to compile the code:
