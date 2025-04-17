@@ -1,6 +1,5 @@
 // Including Libs
 #include "cache.h"
-#include <stdio.h>
 
 // Initialize a y size blocks array
 struct Block* initializeBlocks(int y) {
@@ -73,7 +72,17 @@ void printCache(struct Cache cache) {
     printf("\n");
 }
 
-// Read a file with memory address
+// Read a file with memory address and return a FILE pointer if it was finded
 FILE* read_file(char f_name[MAX_FILE_NAME_SIZE]) {
-    return fopen(f_name, "r");
+    // open the file with name f_name
+    FILE* file = fopen(f_name, "r");
+
+    // check if the file was finded
+    if(file == NULL) {
+        printf("Error: File not exists!\n");
+        exit(0);
+    } else {
+        // return a FILE pointer for reading
+        return file;
+    }
 }
