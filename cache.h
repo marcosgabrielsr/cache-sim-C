@@ -16,7 +16,7 @@ typedef struct {
 
 // Struct to represent the sets
 typedef struct {
-    Block *blocks;                           // Field to store the blocks set of a set
+    Block *blocks;                                  // Field to store the blocks set of a set
 } Set;
 
 // Struct to represet the cache
@@ -25,10 +25,14 @@ typedef struct {
     int n;                                          // Field to store the cache associativity
     int p;                                          // Field to store the number words per block
     int b;                                          // Field to store the number bytes per word
-    Set *sets;                               // Field to store the sets of cache
+    Set *sets;                                      // Field to store the sets of cache
 } Cache;
 
-// Declaring function prototypes
+// ======================================= Declaring address_op.c function prototypes ==================================================================================
+// Return the index in the cache of the address variable
+unsigned int get_index(int address, int x);
+
+// ======================================= Declaring cache.c function prototypes ==================================================================================
 // Initialize a y size blocks array
 Block* initializeBlocks(int y);
 
