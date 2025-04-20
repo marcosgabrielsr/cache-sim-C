@@ -2,9 +2,9 @@
 #include "cache.h"
 
 // Initialize a y size blocks array
-struct Block* initializeBlocks(int y) {
+Block* initializeBlocks(int y) {
     // Dynamic allocation of y size Blocks array
-    struct Block *newBlocks = (struct Block*) calloc (y, sizeof(struct Block));
+    Block* newBlocks = (Block*) calloc (y, sizeof(Block));
 
     // Setting v field as zero
     for(int i = 0; i < y; i++) {
@@ -14,9 +14,9 @@ struct Block* initializeBlocks(int y) {
 }
 
 // Initialize a x size sets array with a y size blocks array each position
-struct Set* initializeSets(int x, int y) {
+Set* initializeSets(int x, int y) {
     // Dynamic allocation of x size sets array
-    struct Set *newSets = (struct Set*) calloc (x, sizeof(struct Set));
+    Set *newSets = (Set*) calloc (x, sizeof(Set));
 
     // Runs the initializeBlocks function for each sets array position
     for(int i = 0; i < x; i++){
@@ -27,8 +27,8 @@ struct Set* initializeSets(int x, int y) {
 }
 
 // Initialize a cache with your respective fields
-struct Cache initializeCache(int m, int n, int p, int b) {
-    struct Cache newCache;
+Cache initializeCache(int m, int n, int p, int b) {
+    Cache newCache;
     newCache.m = m;
     newCache.n = n;
     newCache.p = p;
@@ -39,7 +39,7 @@ struct Cache initializeCache(int m, int n, int p, int b) {
 }
 
 // Print the memory address division in fields and the number of bits of each fild
-void printBitsDivision(struct Cache cache) {
+void printBitsDivision(Cache cache) {
     double byteOffSetBits = log2(cache.b);                                                  // number of bits for the byteOffSet field
     double blockOffSetBits = log2(cache.p);                                                 // number of bits for the blockOffSet field
     double indexBits = log2(((double)cache.m/cache.n));                                     // number of bits for the index field
@@ -53,7 +53,7 @@ void printBitsDivision(struct Cache cache) {
 }
 
 // Print the values on the cache fields
-void printCache(struct Cache cache) {
+void printCache(Cache cache) {
     // Call the printBitsDivision function
     printBitsDivision(cache);
 
