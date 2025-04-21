@@ -32,6 +32,12 @@ typedef struct {
 // Return the index in the cache of the address variable
 unsigned int get_index(int address, int x);
 
+// Return the tag of the address
+unsigned int get_tag(int address, int x);
+
+// Read a file with memory address
+FILE* read_file(char f_name[MAX_FILE_NAME_SIZE]);
+
 // ======================================= Declaring cache.c function prototypes ==================================================================================
 // Initialize a y size blocks array
 Block* initializeBlocks(int y);
@@ -47,6 +53,3 @@ void printBitsDivision(Cache cache);
 
 // Print the cache configurations
 void printCache(Cache cache);
-
-// Read a file with memory address
-FILE* read_file(char f_name[MAX_FILE_NAME_SIZE]);

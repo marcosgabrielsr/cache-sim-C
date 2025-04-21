@@ -1,13 +1,27 @@
 // Including libs
 #include "cache.h"
 
-int pow_int(int x, int y) {
-    if(y == 0) {
-        return 1;
-    }
-    return y * pow_int(x, y - 1);
-}
-
+// Return the index in the cache of the address variable
 unsigned int get_index(int address, int x) {
     return address % x;
+}
+
+// Return the tag of the address
+unsigned int get_tag(int address, int x) {
+    return address / x;
+}
+
+// Read a file with memory address and return a FILE pointer if it was finded
+FILE* read_file(char f_name[MAX_FILE_NAME_SIZE]) {
+    // open the file with name f_name
+    FILE* file = fopen(f_name, "r");
+
+    // check if the file was finded
+    if(file == NULL) {
+        printf("Error: File not exists!\n");
+        exit(0);
+    } else {
+        // return a FILE pointer for reading
+        return file;
+    }
 }
