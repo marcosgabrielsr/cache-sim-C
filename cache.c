@@ -1,5 +1,7 @@
 // Including Libs
 #include "cache.h"
+#include <linux/limits.h>
+#include <stdio.h>
 
 // Initialize a y size blocks array
 Block* initializeBlocks(int y) {
@@ -62,27 +64,29 @@ void printCache(Cache cache) {
     printf("Associativity: %d\n", cache.n);
     printf("Number of words per block: %d\n", cache.p);
     printf("Number of bytes per word: %d\n", cache.b);
-
-    printf("\nIndex | Validity Bit | Tag\n");
-    for(int i = 0; i < (cache.m/cache.n); i++) {
-        for(int j = 0; j < cache.n; j++) {
-            printf("%5d | %12d | %3d\n", i, cache.sets[i].blocks[j].v, cache.sets[i].blocks[j].tag);
-        }
-    }
     printf("\n");
 }
 
-// Read a file with memory address and return a FILE pointer if it was finded
-FILE* read_file(char f_name[MAX_FILE_NAME_SIZE]) {
-    // open the file with name f_name
-    FILE* file = fopen(f_name, "r");
-
-    // check if the file was finded
-    if(file == NULL) {
-        printf("Error: File not exists!\n");
-        exit(0);
-    } else {
-        // return a FILE pointer for reading
-        return file;
+// Remove newline character
+void remove_newline_chr(char l[MAX_LINE_SIZE]) {
+    int i = 0;
+    while(l[i] != '\n' && i < MAX_INPUT && l[i] != '\0') {
+        i++;
     }
+
+    if(i != MAX_LINE_SIZE)
+        l[i] = '\0';
+}
+
+// Run a cache acess simulation
+void simulation(Cache cache, FILE* file) {
+    int index, tag;
+    char line[MAX_LINE_SIZE];
+
+    printf("========= Simulation ==========\n");
+    while(fgets(line, MAX_LINE_SIZE, file)) {
+        remove_newline_chr(line);
+        printf("address: %s\n", line);
+    }
+    printf("\n");
 }

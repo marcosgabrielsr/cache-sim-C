@@ -1,11 +1,13 @@
 // Including Libs
 #include <stdio.h>
 #include <stdlib.h>
+#include <strings.h>
 #include <math.h>
 
 // Defining constants
 #define WORD_SIZE_BITS 32.0
 #define MAX_FILE_NAME_SIZE 50
+#define MAX_LINE_SIZE 10
 
 // Struct to represent the blocks
 typedef struct {
@@ -53,3 +55,6 @@ void printBitsDivision(Cache cache);
 
 // Print the cache configurations
 void printCache(Cache cache);
+
+// Run a cache acess simulation
+void simulation(Cache cache, FILE* file);
