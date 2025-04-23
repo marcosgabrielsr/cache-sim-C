@@ -54,7 +54,7 @@ void simulation(Cache cache, FILE* file);
 // Return the index in the cache of the address variable (address mod m/n)
 unsigned int get_index(int address, int x);
 
-// Return the tag of the address
+// Return the tag of the address (address / (m/n))
 unsigned int get_tag(int address, int x);
 
 // Read a file with memory address
