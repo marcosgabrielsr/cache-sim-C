@@ -1,9 +1,5 @@
 // Including Libs
 #include "cache.h"
-#include <cstdlib>
-#include <linux/limits.h>
-#include <stdio.h>
-#include <stdlib.h>
 
 // Initialize a y size blocks array
 Block* initializeBlocks(int y) {
@@ -72,37 +68,46 @@ void printCache(Cache cache) {
 // Remove newline character
 void remove_newline_chr(char l[MAX_LINE_SIZE]) {
     int i = 0;
-    while(l[i] != '\n' && i < MAX_INPUT && l[i] != '\0') {
+    while(l[i] != '\n' && i < MAX_LINE_SIZE && l[i] != '\0') {
         i++;
     }
 
-    if(i != MAX_LINE_SIZE)
+    if(i != MAX_LINE_SIZE) {
         l[i] = '\0';
+    }
 }
 
-// Convert a string to number and return if sucess
-int str_to_int(char str[MAX_LINE_SIZE], int *n) {
-    int i = 0;
-    while(str[i] != '\0') {
-        if (str[i] < 48 && str[i] > 57) {
-            printf("*Error(str_to_int): is not convert '%s'*\n", str);
-        }
-        i++;
-    }
-    *n = atoi(str);
+// Search for a tag in the cache blocks in a specifc set and return true if finded
+int cache_search(Cache cache, int address) {
+    Set *aux_set = &cache.sets[get_index(address, cache.m/cache.n)];
 
-    return EXIT_SUCCESS;
+    for(int i = 0; i < cache.n; i++) {
+        if(aux_set->blocks[i].v) {
+            if(aux_set->blocks[i].tag == get_tag(address, cache.m/cache.n)) {
+                return 1;
+            }
+        }
+    }
+
+    return 0;
 }
 
 // Run a cache acess simulation
 void simulation(Cache cache, FILE* file) {
-    int index, tag, n;
+    int ad;
     char line[MAX_LINE_SIZE];
 
     printf("========= Simulation ==========\n");
     while(fgets(line, MAX_LINE_SIZE, file)) {
         remove_newline_chr(line);
-        printf("address: %s\n", line);
+        ad = atoi(line);
+        printf("address: %8d - ", ad);
+
+        if(cache_search(cache, ad)) {
+            printf("sucess");
+        } else {
+
+        }
     }
     printf("\n");
 }
