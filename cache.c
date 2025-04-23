@@ -1,7 +1,9 @@
 // Including Libs
 #include "cache.h"
+#include <cstdlib>
 #include <linux/limits.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 // Initialize a y size blocks array
 Block* initializeBlocks(int y) {
@@ -78,9 +80,23 @@ void remove_newline_chr(char l[MAX_LINE_SIZE]) {
         l[i] = '\0';
 }
 
+// Convert a string to number and return if sucess
+int str_to_int(char str[MAX_LINE_SIZE], int *n) {
+    int i = 0;
+    while(str[i] != '\0') {
+        if (str[i] < 48 && str[i] > 57) {
+            printf("*Error(str_to_int): is not convert '%s'*\n", str);
+        }
+        i++;
+    }
+    *n = atoi(str);
+
+    return EXIT_SUCCESS;
+}
+
 // Run a cache acess simulation
 void simulation(Cache cache, FILE* file) {
-    int index, tag;
+    int index, tag, n;
     char line[MAX_LINE_SIZE];
 
     printf("========= Simulation ==========\n");
