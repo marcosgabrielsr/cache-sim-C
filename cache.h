@@ -13,6 +13,7 @@
 typedef struct {
     int v;                                          // Field to store the validity bit
     int tag;                                        // Field to store the tag from an address
+    int lru;                                        // Field to store the last block access for the LRU system
     int *words;                                     // Field to store the words of a block
 } Block;
 
@@ -29,16 +30,6 @@ typedef struct {
     int b;                                          // Field to store the number bytes per word
     Set *sets;                                      // Field to store the sets of cache
 } Cache;
-
-// ======================================= Declaring address_op.c function prototypes ==================================================================================
-// Return the index in the cache of the address variable
-unsigned int get_index(int address, int x);
-
-// Return the tag of the address
-unsigned int get_tag(int address, int x);
-
-// Read a file with memory address
-FILE* read_file(char f_name[MAX_FILE_NAME_SIZE]);
 
 // ======================================= Declaring cache.c function prototypes ==================================================================================
 // Initialize a y size blocks array
@@ -58,3 +49,13 @@ void printCache(Cache cache);
 
 // Run a cache acess simulation
 void simulation(Cache cache, FILE* file);
+
+// ======================================= Declaring address_op.c function prototypes ==================================================================================
+// Return the index in the cache of the address variable (address mod m/n)
+unsigned int get_index(int address, int x);
+
+// Return the tag of the address
+unsigned int get_tag(int address, int x);
+
+// Read a file with memory address
+FILE* read_file(char f_name[MAX_FILE_NAME_SIZE]);
